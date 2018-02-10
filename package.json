@@ -1,0 +1,26 @@
+{
+  "name": "taxonomyviewer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "elm-webpack-loader": "^4.4.0",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.11.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "dev": "./node_modules/.bin/webpack-dev-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/graeme-lockley/TaxonomyViewer.git"
+  },
+  "author": "",
+  "license": "GPLv3",
+  "bugs": {
+    "url": "https://github.com/graeme-lockley/TaxonomyViewer/issues"
+  },
+  "homepage": "https://github.com/graeme-lockley/TaxonomyViewer#readme"
+}
