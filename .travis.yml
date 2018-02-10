@@ -11,6 +11,3 @@ install:
   - npm install
   - elm package install -y
   - cd ..
-
-script:
-  - elm-test tests/RippleCarryAdderTests.elm
