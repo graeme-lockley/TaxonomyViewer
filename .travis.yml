@@ -5,6 +5,10 @@ node_js:
 
 cache:
   directories:
+    - elm-stuff/build-artifacts
+    - elm-stuff/packages
+    - tests/elm-stuff/build-artifacts
+    - tests/elm-stuff/packages
     - sysconfcpus
 
 install:
@@ -29,7 +33,6 @@ install:
   - cd ..
 
 script:
-  - cd src/elm
   - elm-make --output=/dev/null --yes
   - cd ../../tests
   - elm-make --output=/dev/null --yes
