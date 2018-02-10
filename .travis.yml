@@ -1,0 +1,16 @@
+language: node_js
+
+node_js:
+  - "9.5.0"
+
+install:
+  - npm install elm -g
+  - npm install elm-test -g
+  - elm package install -y
+  - cd tests
+  - npm install
+  - elm package install -y
+  - cd ..
+
+script:
+  - elm-test tests/RippleCarryAdderTests.elm
