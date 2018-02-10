@@ -1,20 +1,9 @@
-module RippleCarryAdderTests exposing (main, allTests, inverterTests, andGateTests)
+module RippleCarryAdderTests exposing (inverterTests, andGateTests)
 
 import Test exposing (describe, test)
 import Expect
 import Bitwise
 import Test.Runner.Html exposing (run)
-
-
-main =
-    run <| allTests
-
-
-allTests =
-     describe "4-bit Ripple Carry Adder Components"
-        [ inverterTests
-        , andGateTests
-        ]
 
 
 inverterTests =

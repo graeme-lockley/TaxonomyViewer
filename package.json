@@ -11,7 +11,7 @@
   "devDependencies": {},
   "scripts": {
     "dev": "./node_modules/.bin/webpack-dev-server",
-    "test": "elm-test tests/RippleCarryAdderTests.elm"
+    "test": "elm-test tests/AllTests.elm"
   },
   "repository": {
     "type": "git",
