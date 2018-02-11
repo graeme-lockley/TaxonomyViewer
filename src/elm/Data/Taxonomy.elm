@@ -1,9 +1,13 @@
 module Data.Taxonomy exposing
     ( Taxonomy
     , allLeaves
+    , index
     , isLeaf
     , taxonomy
     )
+
+
+import Dict
 
 
 type Taxonomy =
@@ -30,3 +34,8 @@ allLeaves (Taxonomy item as t) =
         [t]
     else
         List.concatMap allLeaves item.children
+
+
+index : Taxonomy -> Result String (Dict.Dict String Taxonomy)
+index (Taxonomy item as t) =
+    Ok (Dict.singleton item.key t)
