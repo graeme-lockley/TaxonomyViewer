@@ -1,0 +1,106 @@
+table {
+    page-break-inside: auto;
+}
+
+tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+
+}
+
+td.heading1 {
+    text-align: center;
+    background-color: #e9f4ff;
+    color: black;
+    font-family: sans-serif;
+    font-size: large;
+}
+
+td.heading2 {
+    text-align: center;
+    background-color: #e9f4ff;
+    color: black;
+    font-family: sans-serif;
+    font-size: small;
+}
+
+td.heading3 {
+    width: 150pt;
+    text-align: center;
+    background-color: #e9f4ff;
+    color: black;
+    font-family: sans-serif;
+    font-size: x-small;
+}
+
+td.rowHeading1 {
+    text-align: left;
+    background-color: #e9f4ff;
+    color: black;
+    font-family: sans-serif;
+    font-size: 10pt;
+    font-weight: bold;
+    width: 300pt;
+}
+
+td.rowHeading2 {
+    text-align: left;
+    background-color: #e9f4ff;
+    color: black;
+    font-family: sans-serif;
+    font-size: 8pt;
+    /*text-indent: 20pt;*/
+    padding-left: 20pt;
+    width: 300pt;
+}
+
+td.cell {
+    text-align: center;
+    background-color: #e9f4ff;
+    color: black;
+    font-family: sans-serif;
+    font-size: smaller;
+    margin: 1pt auto;
+    border: 0;
+    padding: 0;
+}
+
+div.apps {
+    margin: 0 auto;
+    border: 0pt;
+    padding: 1pt;
+    background-color: #b1e5ff;
+    text-align: center;
+    color: white;
+    font-family: sans-serif;
+}
+
+div.app {
+    width: 80pt;
+    /*height: 32pt;*/
+    text-align: center;
+    /*line-height: 32pt;*/
+    color: white;
+    font-family: sans-serif;
+    font-size: 10pt;
+    display: inline-block;
+    margin: 1pt auto;
+    border: 0pt solid black;
+    padding: 4pt;
+}
+
+div.existing {
+    background-color: darkblue;
+}
+
+div.outsourced {
+    background-color: #b87920;
+}
+
+div.new {
+    background-color: green;
+}
+
+div.exit {
+    background-color: red;
+}
