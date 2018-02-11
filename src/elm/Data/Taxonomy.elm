@@ -1,6 +1,6 @@
 module Data.Taxonomy exposing
     ( Taxonomy
-    , allChildren
+    , allLeaves
     , isLeaf
     , taxonomy
     )
@@ -24,9 +24,9 @@ isLeaf (Taxonomy item) =
     List.isEmpty item.children
 
 
-allChildren : Taxonomy -> List Taxonomy
-allChildren (Taxonomy item as t) =
+allLeaves : Taxonomy -> List Taxonomy
+allLeaves (Taxonomy item as t) =
     if isLeaf t then
         [t]
     else
-        List.concatMap allChildren item.children
+        List.concatMap allLeaves item.children

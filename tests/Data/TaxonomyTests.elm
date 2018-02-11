@@ -18,14 +18,14 @@ taxonomyTests =
                     isLeaf (taxonomy "Parent" "P1" [taxonomy "Child" "C1" []])
                         |> Expect.false "is not a leaf"
             ]
-        , describe "allChildren"
+        , describe "allLeaves"
             [ test "item which is a child should return itself" <|
                 \() ->
                     let
                         item =
                             taxonomy "Child" "C1" []
                     in
-                        allChildren item
+                        allLeaves item
                             |> Expect.equalLists [item]
             , test "item which is a parent should return its children" <|
                 \() ->
@@ -38,7 +38,7 @@ taxonomyTests =
                         item =
                             taxonomy "Parent" "P1" children
                     in
-                        allChildren item
+                        allLeaves item
                             |> Expect.equalLists children
             ]
         ]
