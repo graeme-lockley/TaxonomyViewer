@@ -1,7 +1,7 @@
 {
   "name": "taxonomyviewer",
   "version": "1.0.0",
-  "description": "",
+  "description": "A taxonomy viewer that displays intersections between two taxonomies where the interection points is itself an item within a third taxonomy",
   "main": "index.js",
   "dependencies": {
     "elm-webpack-loader": "^4.4.0",
@@ -19,7 +19,7 @@
     "url": "git+https://github.com/graeme-lockley/TaxonomyViewer.git"
   },
   "author": "",
-  "license": "GPLv3",
+  "license": "GPL-3.0-only",
   "bugs": {
     "url": "https://github.com/graeme-lockley/TaxonomyViewer/issues"
   },
