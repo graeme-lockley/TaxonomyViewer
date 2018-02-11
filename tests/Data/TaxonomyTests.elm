@@ -11,11 +11,34 @@ taxonomyTests =
         [ describe "isEmpty"
             [ test "item with no children should be a leaf" <|
                 \() ->
-                    isLeaf (Item {label = "Child", key = "C1", children = []})
+                    isLeaf (taxonomy "Child" "C1" [])
                         |> Expect.true "is a leaf"
              , test "item with childen is not considered a leaf" <|
                 \() ->
-                    isLeaf (Item {label = "Parent", key = "P1", children = [Item {label = "Child", key = "C1", children = []}]})
+                    isLeaf (taxonomy "Parent" "P1" [taxonomy "Child" "C1" []])
                         |> Expect.false "is not a leaf"
+            ]
+        , describe "allChildren"
+            [ test "item which is a child should return itself" <|
+                \() ->
+                    let
+                        item =
+                            taxonomy "Child" "C1" []
+                    in
+                        allChildren item
+                            |> Expect.equalLists [item]
+            , test "item which is a parent should return its children" <|
+                \() ->
+                    let
+                        children =
+                            [ taxonomy "Child" "C1" []
+                            , taxonomy "Child" "C2" []
+                            ]
+
+                        item =
+                            taxonomy "Parent" "P1" children
+                    in
+                        allChildren item
+                            |> Expect.equalLists children
             ]
         ]

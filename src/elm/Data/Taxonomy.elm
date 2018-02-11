@@ -1,22 +1,34 @@
-module Data.Taxonomy exposing (Taxonomy(..), isLeaf)
+module Data.Taxonomy exposing
+    ( Taxonomy
+    , allChildren
+    , isLeaf
+    , taxonomy
+    )
 
 
 type Taxonomy =
-    Item
-    { label : String
-    , key : String
-    , children : List Taxonomy
-    }
+    Taxonomy
+        { label : String
+        , key : String
+        , children : List Taxonomy
+        }
+
+
+taxonomy : String -> String -> List Taxonomy -> Taxonomy
+taxonomy label key children =
+    Taxonomy {label = label, key = key, children = children}
 
 
 isLeaf : Taxonomy -> Bool
-isLeaf (Item item) =
+isLeaf (Taxonomy item) =
     List.isEmpty item.children
 
 
---allChildren : Taxonomy -> List Taxonomy
---allChildren (Item item) =
---    if List.length item.children == 0 then
---        []
---    else
---        List.flatten (List.map allChildren )
+allChildren : Taxonomy -> List Taxonomy
+allChildren t =
+    case t of
+        Taxonomy item ->
+            if isLeaf t then
+                [t]
+            else
+                List.concatMap allChildren item.children
