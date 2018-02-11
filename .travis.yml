@@ -23,9 +23,6 @@ install:
     fi
   - npm install elm -g
   - npm install elm-test -g
-  - mv $(npm config get prefix)/bin/elm-make $(npm config get prefix)/bin/elm-make-old
-  - printf '%s\n\n' '#!/bin/bash' 'echo "Running elm-make with sysconfcpus -n 2"' '$TRAVIS_BUILD_DIR/sysconfcpus/bin/sysconfcpus -n 2 elm-make-old "$@"' > $(npm config get prefix)/bin/elm-make
-  - chmod +x $(npm config get prefix)/bin/elm-make
   - elm package install -y
   - cd tests
   - npm install
@@ -33,8 +30,8 @@ install:
   - cd ..
 
 script:
-  - elm-make --output=/dev/null --yes
+  - $TRAVIS_BUILD_DIR/sysconfcpus/bin/sysconfcpus -n 2 "elm-make --output=/dev/null --yes"
   - cd tests
-  - elm-make --output=/dev/null --yes
+  - $TRAVIS_BUILD_DIR/sysconfcpus/bin/sysconfcpus -n 2 "elm-make --output=/dev/null --yes"
   - cd ..
   - npm test
