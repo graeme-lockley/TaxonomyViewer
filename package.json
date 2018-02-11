@@ -11,7 +11,8 @@
   "devDependencies": {},
   "scripts": {
     "dev": "./node_modules/.bin/webpack-dev-server",
-    "test": "elm-test tests/AllTests.elm"
+    "test": "elm-test",
+    "cleanElm": "rm -rf elm-stuff; rm -rf tests/elm-stuff"
   },
   "repository": {
     "type": "git",
