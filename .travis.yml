@@ -34,4 +34,4 @@ script:
   - cd tests
   - $TRAVIS_BUILD_DIR/sysconfcpus/bin/sysconfcpus -n 2 'elm-make'
   - cd ..
-  - npm test
+  - $TRAVIS_BUILD_DIR/sysconfcpus/bin/sysconfcpus -n 2 'elm-test'
