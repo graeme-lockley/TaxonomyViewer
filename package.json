@@ -10,6 +10,7 @@
   },
   "devDependencies": {},
   "scripts": {
+    "initialSetup": "npm install -g elm elm-test; npm install",
     "dev": "./node_modules/.bin/webpack-dev-server",
     "test": "elm-test",
     "cleanElm": "rm -rf elm-stuff; rm -rf tests/elm-stuff"
