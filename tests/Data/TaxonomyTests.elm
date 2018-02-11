@@ -1,7 +1,8 @@
 module Data.TaxonomyTests exposing (taxonomyTests)
 
-import Test exposing (describe, test)
+import Dict
 import Expect
+import Test exposing (describe, test)
 
 import Data.Taxonomy exposing (taxonomy)
 import Data.Taxonomy as Taxonomy
@@ -72,53 +73,17 @@ taxonomyTests =
                             |> Expect.equalLists children
             ]
         , describe "index"
-            [ test "a valid taxonomy should return a Dict index" <|
+            [ test "root is in index" <|
                 \() ->
-                    let
-                        indexResult =
-                            case Taxonomy.index simpleTaxonomy of
-                                Ok _ -> Nothing
-                                Err msg -> Just msg
-
-                    in
-                        indexResult
-                            |> Expect.equal Nothing
-            , test "a duplicate key should return an error containing the duplicate key name" <|
+                        Dict.member "R1" (Taxonomy.index simpleTaxonomy)
+                            |> Expect.true "Expected the root to appear in the index"
+            , test "interior node is in index" <|
                 \() ->
-                    let
-                        indexResult =
-                            case Taxonomy.index <|
-                                taxonomy "Root" "R1"
-                                    [ taxonomy "ParentA" "PA"
-                                        [ taxonomy "ParentAA" "PAA"
-                                            [ taxonomy "ChildAAA" "CAAA" []
-                                            , taxonomy "ChildAAB" "CAAB" []
-                                            , taxonomy "ChildAAC" "CAAC" []
-                                            ]
-                                        , taxonomy "ParentAB" "PAB"
-                                            [ taxonomy "ChildABA" "CABA" []
-                                            , taxonomy "ChildABB" "CABB" []
-                                            , taxonomy "ChildABC" "CABC" []
-                                            ]
-                                        ]
-                                    , taxonomy "ParentB" "PB"
-                                        [ taxonomy "ParentBA" "PBA"
-                                            [ taxonomy "ChildBAA" "CBAA" []
-                                            , taxonomy "ChildBAB" "CBAB" []
-                                            , taxonomy "ChildBAC" "CBAC" []
-                                            ]
-                                        , taxonomy "ParentAB" "PBB"
-                                            [ taxonomy "ChildBBA" "CBBA" []
-                                            , taxonomy "ChildBBB" "CBBB" []
-                                            , taxonomy "ChildBBC" "CAAC" []
-                                            ]
-                                        ]
-                                    ] of
-                                Ok _ -> Nothing
-                                Err msg -> Just msg
-                    in
-                        indexResult
-                            |> Expect.equal (Just "Duplicate key CAAC")
-
+                        Dict.member "PBA" (Taxonomy.index simpleTaxonomy)
+                            |> Expect.true "Expected the interior node to appear in the index"
+            , test "leaf is in index" <|
+                \() ->
+                        Dict.member "CAAB" (Taxonomy.index simpleTaxonomy)
+                            |> Expect.true "Expected the leaf to appear in the index"
             ]
         ]

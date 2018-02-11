@@ -36,22 +36,26 @@ allLeaves (Taxonomy item as t) =
         List.concatMap allLeaves item.children
 
 
-index : Taxonomy -> Result String (Dict.Dict String Taxonomy)
-index t =
-    let
-        incorporateTaxonomyItem (Taxonomy item as t) =
-            Result.andThen (\idx ->
-                if Dict.member item.key idx then
-                    Err <| "Duplicate key " ++ item.key
-                else
-                    Ok <| Dict.insert item.key t idx)
+index : Taxonomy -> Dict.Dict String Taxonomy
+index (Taxonomy item as t) =
+    List.foldl Dict.union (Dict.singleton item.key t) (List.map index item.children)
 
-        incorporateTaxonomy (Taxonomy item as t) rs =
-            incorporateChildren item.children
-                <| incorporateTaxonomyItem t
-                <| rs
 
-        incorporateChildren rs idx =
-            List.foldl incorporateTaxonomy idx rs
-    in
-        incorporateTaxonomy t (Ok Dict.empty)
+--index t =
+--    let
+--        incorporateTaxonomyItem (Taxonomy item as t) =
+--            Result.andThen (\idx ->
+--                if Dict.member item.key idx then
+--                    Err <| "Duplicate key " ++ item.key
+--                else
+--                    Ok <| Dict.insert item.key t idx)
+--
+--        incorporateTaxonomy (Taxonomy item as t) rs =
+--            incorporateChildren item.children
+--                <| incorporateTaxonomyItem t
+--                <| rs
+--
+--        incorporateChildren rs idx =
+--            List.foldl incorporateTaxonomy idx rs
+--    in
+--        incorporateTaxonomy t (Ok Dict.empty)
