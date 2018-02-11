@@ -25,10 +25,8 @@ isLeaf (Taxonomy item) =
 
 
 allChildren : Taxonomy -> List Taxonomy
-allChildren t =
-    case t of
-        Taxonomy item ->
-            if isLeaf t then
-                [t]
-            else
-                List.concatMap allChildren item.children
+allChildren (Taxonomy item as t) =
+    if isLeaf t then
+        [t]
+    else
+        List.concatMap allChildren item.children
