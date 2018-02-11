@@ -27,7 +27,7 @@ simpleTaxonomy =
                 , taxonomy "ChildBAB" "CBAB" []
                 , taxonomy "ChildBAC" "CBAC" []
                 ]
-            , taxonomy "ParentAB" "PAB"
+            , taxonomy "ParentAB" "PBB"
                 [ taxonomy "ChildBBA" "CBBA" []
                 , taxonomy "ChildBBB" "CBBB" []
                 , taxonomy "ChildBBC" "CBBC" []
@@ -77,11 +77,48 @@ taxonomyTests =
                     let
                         indexResult =
                             case Taxonomy.index simpleTaxonomy of
-                                Ok _ -> True
-                                Err _ -> False
+                                Ok _ -> Nothing
+                                Err msg -> Just msg
 
                     in
                         indexResult
-                            |> Expect.true "unable to create index for valid taxonomy"
+                            |> Expect.equal Nothing
+            , test "a duplicate key should return an error containing the duplicate key name" <|
+                \() ->
+                    let
+                        indexResult =
+                            case Taxonomy.index <|
+                                taxonomy "Root" "R1"
+                                    [ taxonomy "ParentA" "PA"
+                                        [ taxonomy "ParentAA" "PAA"
+                                            [ taxonomy "ChildAAA" "CAAA" []
+                                            , taxonomy "ChildAAB" "CAAB" []
+                                            , taxonomy "ChildAAC" "CAAC" []
+                                            ]
+                                        , taxonomy "ParentAB" "PAB"
+                                            [ taxonomy "ChildABA" "CABA" []
+                                            , taxonomy "ChildABB" "CABB" []
+                                            , taxonomy "ChildABC" "CABC" []
+                                            ]
+                                        ]
+                                    , taxonomy "ParentB" "PB"
+                                        [ taxonomy "ParentBA" "PBA"
+                                            [ taxonomy "ChildBAA" "CBAA" []
+                                            , taxonomy "ChildBAB" "CBAB" []
+                                            , taxonomy "ChildBAC" "CBAC" []
+                                            ]
+                                        , taxonomy "ParentAB" "PBB"
+                                            [ taxonomy "ChildBBA" "CBBA" []
+                                            , taxonomy "ChildBBB" "CBBB" []
+                                            , taxonomy "ChildBBC" "CAAC" []
+                                            ]
+                                        ]
+                                    ] of
+                                Ok _ -> Nothing
+                                Err msg -> Just msg
+                    in
+                        indexResult
+                            |> Expect.equal (Just "Duplicate key CAAC")
+
             ]
         ]

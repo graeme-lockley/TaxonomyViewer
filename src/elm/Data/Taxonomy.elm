@@ -37,5 +37,24 @@ allLeaves (Taxonomy item as t) =
 
 
 index : Taxonomy -> Result String (Dict.Dict String Taxonomy)
-index (Taxonomy item as t) =
-    Ok (Dict.singleton item.key t)
+index t =
+    let
+        incorporateTaxonomyItem : Taxonomy -> Result String (Dict.Dict String Taxonomy) -> Result String (Dict.Dict String Taxonomy)
+        incorporateTaxonomyItem (Taxonomy item as t) =
+            Result.andThen (\idx ->
+                if Dict.member item.key idx then
+                    Err <| "Duplicate key " ++ item.key
+                else
+                    Ok <| Dict.insert item.key t idx)
+
+        incorporateTaxonomy : Taxonomy -> Result String (Dict.Dict String Taxonomy) -> Result String (Dict.Dict String Taxonomy)
+        incorporateTaxonomy (Taxonomy item as t) rs =
+            incorporateChildren item.children
+                <| incorporateTaxonomyItem t
+                <| rs
+
+        incorporateChildren : List Taxonomy -> Result String (Dict.Dict String Taxonomy) -> Result String (Dict.Dict String Taxonomy)
+        incorporateChildren rs idx =
+            List.foldl incorporateTaxonomy idx rs
+    in
+        incorporateTaxonomy t (Ok Dict.empty)
