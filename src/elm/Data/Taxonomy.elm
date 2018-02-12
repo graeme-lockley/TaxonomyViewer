@@ -1,6 +1,7 @@
 module Data.Taxonomy exposing
     ( Taxonomy
     , allLeaves
+    , height
     , index
     , isLeaf
     , taxonomy
@@ -59,3 +60,11 @@ index (Taxonomy item as t) =
 --            List.foldl incorporateTaxonomy idx rs
 --    in
 --        incorporateTaxonomy t (Ok Dict.empty)
+
+
+height : Taxonomy -> Int
+height (Taxonomy item as t) =
+    if isLeaf t then
+        1
+    else
+        1 + Maybe.withDefault 0 (List.maximum (List.map height item.children))

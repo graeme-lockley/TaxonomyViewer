@@ -86,4 +86,14 @@ taxonomyTests =
                         Dict.member "CAAB" (Taxonomy.index simpleTaxonomy)
                             |> Expect.true "Expected the leaf to appear in the index"
             ]
+        , describe "height"
+            [ test "of a leaf" <|
+                \() ->
+                        Taxonomy.height (taxonomy "Child" "C1" [])
+                            |> Expect.equal 1
+            , test "of simple taxonomy" <|
+                \() ->
+                        Taxonomy.height simpleTaxonomy
+                            |> Expect.equal 4
+            ]
         ]
